@@ -16,7 +16,6 @@ VOID Timer(PDRIVER_OBJECT pDriverObject)
 	LARGE_INTEGER Result;
 	Result.QuadPart = __rdtsc();
 	return Result;
-	
 }
 
 
