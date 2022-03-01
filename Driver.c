@@ -11,11 +11,11 @@ UNICODE_STRING rDevices, rDosDevices;
 VOID Timer(PDRIVER_OBJECT pDriverObject)
 {
 	KeSetSystemAffinityThread(0); // 0 for HyperTherading On / 1 for HyperTherading off
-	PLARGE_INTEGER PerformanceFrequency; 
-	KeQueryPerformanceCounter(&PerformanceFrequency); 
-	LARGE_INTEGER Result;
-	Result.QuadPart = __rdtsc();
-	return Result;
+	KeStallExecutionProcessor(1);
+	ULONG64 StartTime, EndTime;
+	StartTime = __rdtsc();
+	EndTime = StartTime + KeGetPcr()->StallScaleFactor * 1;
+	return EndTime;
 }
 
 
