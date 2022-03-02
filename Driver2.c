@@ -10,7 +10,7 @@ UNICODE_STRING rDevices, rDosDevices;
 
 VOID Timer(PDRIVER_OBJECT pDriverObject)
 {
-	KeSetSystemAffinityThread(0); // 0 for hyperthreading On / 1 for hyperthreading off
+	KeSetSystemAffinityThread(0); // 0 for Hyperthreading On / 1 for Hyperthreading off
 	KeStallExecutionProcessor(1);
 	ULONG64 StartTime, EndTime;
 	StartTime = __rdtsc();
