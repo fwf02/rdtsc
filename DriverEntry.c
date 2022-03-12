@@ -1,5 +1,5 @@
 #include <ntddk.h>
-
+#include <intrin.h>
 PDEVICE_OBJECT pDeviceObject;
 UNICODE_STRING rDevices, rDosDevices;
 
