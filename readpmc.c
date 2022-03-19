@@ -10,7 +10,6 @@ UNICODE_STRING rDevices, rDosDevices;
 
 VOID readpmc(PDRIVER_OBJECT pDriverObject)
 {
-	KeSetSystemAffinityThread(0); // 0 for HyperThreading / 1 for off HyperThreading
 	KeStallExecutionProcessor(1);
 	ULONG64 StartTime, EndTime;
 	StartTime = __readpmc(0); // test __readpmc(1); as well
