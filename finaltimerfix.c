@@ -5,7 +5,7 @@
 // Thanks to
  // https://community.osr.com/discussion/10078/how-to-query-time-elapsed
 // https://cpp.hotexamples.com/
-
+// https://stackoverflow.com/questions/1583196/building-visual-c-app-that-doesnt-use-crt-functions-still-references-some
 
 
 #ifdef __cplusplus
