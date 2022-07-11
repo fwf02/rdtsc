@@ -1,6 +1,12 @@
 #include <ntddk.h>
 #include <stdint.h>
 
+
+// Thanks to
+https://community.osr.com/discussion/10078/how-to-query-time-elapsed
+
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
