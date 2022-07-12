@@ -19,12 +19,13 @@ extern "C" {
 PDEVICE_OBJECT pDeviceObject;
 UNICODE_STRING rDevices, rDosDevices;
 
-unsigned long getSystemTime()
+uint32_t timeee()
 {
-	ULARGE_INTEGER InterruptTime, time;
-	KeQuerySystemTime(&time);
-	InterruptTime.QuadPart = KeQueryInterruptTime();
-	return (unsigned long)((time.QuadPart / 10000000) - 11643609600);
+	ULONGLONG i;
+	KeQueryInterruptTime(&i);
+	LARGE_INTEGER counter;
+	KeQuerySystemTime(&counter);
+	return counter.QuadPart / 1;
 }
 
 #if !defined(_KS_)
@@ -110,7 +111,7 @@ NTSTATUS UnloadDriver(PDRIVER_OBJECT pDriverObject)
 
 NTSTATUS DriverEntry(PDRIVER_OBJECT pDriverObject, PUNICODE_STRING pRegPath)
 {
-	getSystemTime();
+	timeee();
 	v();
 	stopAndGet();
 	DbgPrintEx(0, 0, "TimerFix Loaded!\n");
