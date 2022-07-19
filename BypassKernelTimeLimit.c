@@ -43,13 +43,13 @@ ULONGLONG	test()
 	KeRaiseIrql(HIGH_LEVEL, &oldIrql);
 	ULONGLONG counter;
 	ULONGLONG freq;
-	LONGLONG  dwTick;
+	LONGLONG  Ticks;
 	counter = (ULONGLONG)KeQueryPerformanceCounter((PLARGE_INTEGER)&freq).QuadPart;
 	counter = counter * extremenanoseconds / freq;
-	dwTick = (LONGLONG)(counter & 0xFFFFFFFF);
+	Ticks = (LONGLONG)(counter & 0xFFFFFFFF);
 	Sleepx(1);
 	KeLowerIrql(oldIrql);
-	return dwTick;
+	return Ticks;
 }
 
 
