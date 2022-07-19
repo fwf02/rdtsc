@@ -34,16 +34,24 @@ NTSTATUS Sleepx(ULONGLONG milliseconds)
 }
 
 
-NTSTATUS BypassKernelTimeLimit(PDRIVER_OBJECT pDriverObject)
+#define extremenanoseconds		100000000
+
+ULONGLONG	test()
 {
-	LARGE_INTEGER Freq, Timeout, t0, t1;
-	LONGLONG Elapsed;
-	t0 = KeQueryPerformanceCounter(&Freq);
-	t1 = KeQueryPerformanceCounter(&Freq);
-	Elapsed = ((t1.QuadPart - t0.QuadPart) * 100000000) / Freq.QuadPart; // extreme precision
+	KeSetPriorityThread(PsGetCurrentThread(), HIGH_PRIORITY - 1);
+	KIRQL oldIrql;
+	KeRaiseIrql(HIGH_LEVEL, &oldIrql);
+	ULONGLONG counter;
+	ULONGLONG freq;
+	LONGLONG  dwTick;
+	counter = (ULONGLONG)KeQueryPerformanceCounter((PLARGE_INTEGER)&freq).QuadPart;
+	counter = counter * extremenanoseconds / freq;
+	dwTick = (LONGLONG)(counter & 0xFFFFFFFF);
 	Sleepx(1);
-	return 0;
+	KeLowerIrql(oldIrql);
+	return dwTick;
 }
+
 
 NTSTATUS UnloadDriver(PDRIVER_OBJECT pDriverObject)
 {
@@ -53,7 +61,7 @@ NTSTATUS UnloadDriver(PDRIVER_OBJECT pDriverObject)
 
 NTSTATUS DriverEntry(PDRIVER_OBJECT pDriverObject, PUNICODE_STRING pRegPath)
 {
-	BypassKernelTimeLimit(pDriverObject);
+	test();
 	DbgPrintEx(0, 0, "test Loaded!\n");
 
 
