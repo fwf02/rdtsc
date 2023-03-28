@@ -39,7 +39,7 @@ void determine_cpu_cycle_rate(void)
 	// When requesting 'ProcessorInformation', the output receives one
 	// PROCESSOR_POWER_INFORMATION structure for each processor that is
 	// installed on the system
-	proc_pwr_info = ExAllocatePool(NonPagedPool, num_proc * sizeof(*proc_pwr_info));  //proc_pwr_info = _alloca(num_proc * sizeof(*proc_pwr_info));
+	proc_pwr_info = ExAllocatePool(PagedPool, num_proc * sizeof(*proc_pwr_info));  //proc_pwr_info = _alloca(num_proc * sizeof(*proc_pwr_info));
 	ZwPowerInformation(ProcessorInformation, NULL, 0,
 		proc_pwr_info, num_proc * sizeof(*proc_pwr_info));
 
